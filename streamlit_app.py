@@ -50,21 +50,21 @@ with st.form("prediction_form"):
 
     submitted = st.form_submit_button("开始预测")
 
-    if submitted:
-        with st.spinner('正在计算中...'):
-            # 转换性别为数值
-            gender_value = 1 if gender == "男" else 0
+if submitted:  # 注意这个判断在with语句块外
+    with st.spinner('正在计算中...'):
+        # 转换性别为数值
+        gender_value = 1 if gender == "男" else 0
 
-            # 构建输入数据
-            input_data = pd.DataFrame([[age, gender_value, height, weight, blood_transfusion, hgb_before]],
-                                    columns=['年龄', '性别', '身高', '体重', '本次输血量', 'HGB前'])
+        # 构建输入数据
+        input_data = pd.DataFrame([[age, gender_value, height, weight, blood_transfusion, hgb_before]],
+                                columns=['年龄', '性别', '身高', '体重', '本次输血量', 'HGB前'])
 
-            # 数据缩放
-            scaled_data = scaler.transform(input_data)
+        # 数据缩放
+        scaled_data = scaler.transform(input_data)
 
-            # 预测
-            prediction = model.predict(scaled_data)
+        # 预测
+        prediction = model.predict(scaled_data)
 
-            # 优化结果显示
-            st.metric(label="预测HGB值", value=f"{prediction[0]:.2f} g/L", delta=f"较输血前变化 {prediction[0]-hgb_before:.2f}g/L")
-            st.caption("注：预测结果仅供参考，实际临床决策需结合其他检查指标")
+        # 优化结果显示
+        st.metric(label="预测HGB值", value=f"{prediction[0]:.2f} g/L", delta=f"较输血前变化 {prediction[0]-hgb_before:.2f}g/L")
+        st.caption("注：预测结果仅供参考，实际临床决策需结合其他检查指标")
