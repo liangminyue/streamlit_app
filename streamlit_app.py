@@ -40,12 +40,12 @@ with st.form("prediction_form"):
     col1, col2 = st.columns(2)
     with col1:
         age = st.number_input("年龄", min_value=0, max_value=100, value=30)
-        height = st.number_input("身高 (cm)", min_value=20, max_value=250, value=170, step=0.1)
+        height = st.number_input("身高 (cm)", min_value=20.0, max_value=250.0, value=170.0, step=0.1)
         blood_transfusion = st.number_input("本次输血量 (U)", min_value=0, max_value=12, value=0)
         
     with col2:
         gender = st.selectbox("性别", ["男", "女"], index=0)
-        weight = st.number_input("体重 (kg)", min_value=10, max_value=200, value=70, step=0.1)
+        weight = st.number_input("体重 (kg)", min_value=10.0, max_value=200.0, value=70.0, step=0.1)
         hgb_before = st.number_input("HGB前值 (g/L)", min_value=20, max_value=200, value=120, help="输血前血红蛋白浓度")
 
     submitted = st.form_submit_button("开始预测")
